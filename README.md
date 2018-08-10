@@ -6,7 +6,7 @@ A simple C implemention of some GLM Matrix and Vector Math functions.
 
 Based on struct of array.
 
-You need to use C standard math library libm.so (`-lm`) to use this.
+You need to link C standard math library libm.so (`-lm`) to use this.
 
 Data types:
 
