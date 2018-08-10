@@ -1,9 +1,7 @@
 #ifndef __MVMATH_H__
 #	define __MVMATH_H__
-#	define PI 3.1415926
-
+#	define PI 3.141593f
 typedef float scalar;
-
 /*
  * vec2 is a scalar[2] like this:
  * | 0 |
@@ -12,7 +10,6 @@ typedef float scalar;
 typedef struct {
 	scalar v[2];
 } vec2;
-
 /*
  * vec3 is a scalar[3] like this:
  * | 0 |
@@ -22,7 +19,6 @@ typedef struct {
 typedef struct {
 	scalar v[3];
 } vec3;
-
 /*
  * vec4 is a scalar[4] like this:
  * | 0 |
@@ -33,7 +29,6 @@ typedef struct {
 typedef struct {
 	scalar v[4];
 } vec4;
-
 /*
  * mat4 is a scalar[16] like this:
  * |   0   4   8  12   |
