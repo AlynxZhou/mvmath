@@ -14,6 +14,7 @@ int v3print(vec3 v)
 	return printf("vec3: {\n\t%8.3f, %8.3f, %8.3f\n}\n",
 		      v.v[0], v.v[1], v.v[2]);
 }
+
 int v4print(vec4 v)
 {
 	return printf("vec4: {\n\t%8.3f, %8.3f, %8.3f, %8.3f\n}\n",
