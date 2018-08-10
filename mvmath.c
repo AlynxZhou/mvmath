@@ -1,9 +1,7 @@
 #include <math.h>
 #include "mvmath.h"
-
 #ifdef __DEBUG__
 #	include <stdio.h>
-
 int v2print(vec2 v)
 {
 	return printf("vec2: {\n\t%8.3f, %8.3f\n}\n", v.v[0], v.v[1]);
