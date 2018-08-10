@@ -9,13 +9,13 @@ int v2print(vec2 v)
 
 int v3print(vec3 v)
 {
-	return printf("vec3: {\n\t%8.3f, %8.3f, %8.3f\n}\n",
+	return printf("vec3: {\n\t%8.3f, %8.3f, %8.3f\n}\n", \
 		      v.v[0], v.v[1], v.v[2]);
 }
 
 int v4print(vec4 v)
 {
-	return printf("vec4: {\n\t%8.3f, %8.3f, %8.3f, %8.3f\n}\n",
+	return printf("vec4: {\n\t%8.3f, %8.3f, %8.3f, %8.3f\n}\n", \
 		      v.v[0], v.v[1], v.v[2], v.v[3]);
 }
 
@@ -26,10 +26,10 @@ int m4print(mat4 m)
 		      "\t%8.3f, %8.3f, %8.3f, %8.3f\n"
 		      "\t%8.3f, %8.3f, %8.3f, %8.3f\n"
 		      "\t%8.3f, %8.3f, %8.3f, %8.3f\n"
-		      "}\n",
-		      m.m[0], m.m[4], m.m[8], m.m[12],
-		      m.m[1], m.m[5], m.m[9], m.m[13],
-		      m.m[2], m.m[6], m.m[10], m.m[14],
+		      "}\n", \
+		      m.m[0], m.m[4], m.m[8], m.m[12], \
+		      m.m[1], m.m[5], m.m[9], m.m[13], \
+		      m.m[2], m.m[6], m.m[10], m.m[14], \
 		      m.m[3], m.m[7], m.m[11], m.m[15]);
 }
 #endif
