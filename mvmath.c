@@ -1,4 +1,6 @@
 #include <math.h>
+#include <stddef.h>
+#include <stdbool.h>
 #include "mvmath.h"
 #ifdef __DEBUG__
 #	include <stdio.h>
@@ -79,6 +81,16 @@ vec2 v2normalize(vec2 v)
 	return v2smultiply(v, 1.0f / v2length(v));
 }
 
+bool v2compare(vec2 v1, vec2 v2)
+{
+	return v1.v[0] == v2.v[0] && v1.v[1] == v2.v[1];
+}
+
+vec2 v2abs(vec2 v)
+{
+	return v2s(sabs(v.v[0]), sabs(v.v[1]));
+}
+
 vec2 v2add(vec2 v1, vec2 v2)
 {
 	return v2s(v1.v[0] + v2.v[0], v1.v[1] + v2.v[1]);
@@ -102,11 +114,6 @@ vec2 v2smultiply(vec2 v, scalar s)
 vec2 v2multiply(vec2 v1, vec2 v2)
 {
 	return v2s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1]);
-}
-
-vec2 v2abs(vec2 v)
-{
-	return v2s(sabs(v.v[0]), sabs(v.v[1]));
 }
 
 vec2 v2clamp(vec2 v, vec2 vmin, vec2 vmax)
@@ -133,6 +140,16 @@ scalar v3length(vec3 v)
 vec3 v3normalize(vec3 v)
 {
 	return v3smultiply(v, 1.0f / v3length(v));
+}
+
+bool v3compare(vec3 v1, vec3 v2)
+{
+	return v1.v[0] == v2.v[0] && v1.v[1] == v2.v[1] && v1.v[2] == v2.v[2];
+}
+
+vec3 v3abs(vec3 v)
+{
+	return v3s(sabs(v.v[0]), sabs(v.v[1]), sabs(v.v[2]));
 }
 
 vec3 v3add(vec3 v1, vec3 v2)
@@ -165,11 +182,6 @@ vec3 v3smultiply(vec3 v, scalar s)
 vec3 v3multiply(vec3 v1, vec3 v2)
 {
 	return v3s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1], v1.v[2] * v2.v[2]);
-}
-
-vec3 v3abs(vec3 v)
-{
-	return v3s(sabs(v.v[0]), sabs(v.v[1]), sabs(v.v[2]));
 }
 
 vec3 v3clamp(vec3 v, vec3 vmin, vec3 vmax)
@@ -209,6 +221,17 @@ vec4 v4normalize(vec4 v)
 	return v4smultiply(v, 1.0f / v4length(v));
 }
 
+bool v4compare(vec4 v1, vec4 v2)
+{
+	return v1.v[0] == v2.v[0] && v1.v[1] == v2.v[1] && \
+	       v1.v[2] == v2.v[2] && v1.v[3] == v2.v[3];
+}
+
+vec4 v4abs(vec4 v)
+{
+	return v4s(sabs(v.v[0]), sabs(v.v[1]), sabs(v.v[2]), sabs(v.v[3]));
+}
+
 vec4 v4add(vec4 v1, vec4 v2)
 {
 	return v4s(v1.v[0] + v2.v[0], v1.v[1] + v2.v[1], \
@@ -238,11 +261,6 @@ vec4 v4multiply(vec4 v1, vec4 v2)
 		   v1.v[2] * v2.v[2], v1.v[3] * v2.v[3]);
 }
 
-vec4 v4abs(vec4 v)
-{
-	return v4s(sabs(v.v[0]), sabs(v.v[1]), sabs(v.v[2]), sabs(v.v[3]));
-}
-
 vec4 v4clamp(vec4 v, vec4 vmin, vec4 vmax)
 {
 	return v4s(sclamp(v.v[0], vmin.v[0], vmax.v[0]), \
@@ -270,6 +288,148 @@ mat4 m4identity(void)
         m.m[13] = 0.0f;
         m.m[14] = 0.0f;
         m.m[15] = 1.0f;
+	return m;
+}
+
+bool m4compare(mat4 m1, mat4 m2)
+{
+	for (size_t i = 0; i < 4; ++i)
+		for (size_t j = 0; j < 4; ++j)
+			if (m1.m[i * 4 + j] != m2.m[i * 4 + j])
+				return false;
+	return true;
+}
+
+mat4 m4inverse(mat4 m)
+{
+	mat4 result;
+	scalar delta = 0.0f;
+	result.m[0] = m.m[5]  * m.m[10] * m.m[15] - \
+                   m.m[5]  * m.m[11] * m.m[14] - \
+                   m.m[9]  * m.m[6]  * m.m[15] + \
+                   m.m[9]  * m.m[7]  * m.m[14] + \
+                   m.m[13] * m.m[6]  * m.m[11] - \
+                   m.m[13] * m.m[7]  * m.m[10];
+	result.m[1] = -m.m[1]  * m.m[10] * m.m[15] + \
+		   m.m[1]  * m.m[11] * m.m[14] + \
+		   m.m[9]  * m.m[2] * m.m[15] - \
+		   m.m[9]  * m.m[3] * m.m[14] - \
+		   m.m[13] * m.m[2] * m.m[11] + \
+		   m.m[13] * m.m[3] * m.m[10];
+	result.m[2] = m.m[1]  * m.m[6] * m.m[15] - \
+		   m.m[1]  * m.m[7] * m.m[14] - \
+		   m.m[5]  * m.m[2] * m.m[15] + \
+		   m.m[5]  * m.m[3] * m.m[14] + \
+		   m.m[13] * m.m[2] * m.m[7] - \
+		   m.m[13] * m.m[3] * m.m[6];
+	result.m[3] = -m.m[1] * m.m[6] * m.m[11] + \
+		   m.m[1] * m.m[7] * m.m[10] + \
+		   m.m[5] * m.m[2] * m.m[11] - \
+		   m.m[5] * m.m[3] * m.m[10] - \
+		   m.m[9] * m.m[2] * m.m[7] + \
+		   m.m[9] * m.m[3] * m.m[6];
+        result.m[4] = -m.m[4]  * m.m[10] * m.m[15] + \
+                   m.m[4]  * m.m[11] * m.m[14] + \
+                   m.m[8]  * m.m[6]  * m.m[15] - \
+                   m.m[8]  * m.m[7]  * m.m[14] - \
+                   m.m[12] * m.m[6]  * m.m[11] + \
+                   m.m[12] * m.m[7]  * m.m[10];
+	result.m[5] = m.m[0]  * m.m[10] * m.m[15] - \
+		   m.m[0]  * m.m[11] * m.m[14] - \
+		   m.m[8]  * m.m[2] * m.m[15] + \
+		   m.m[8]  * m.m[3] * m.m[14] + \
+		   m.m[12] * m.m[2] * m.m[11] - \
+		   m.m[12] * m.m[3] * m.m[10];
+	result.m[6] = -m.m[0]  * m.m[6] * m.m[15] + \
+                   m.m[0]  * m.m[7] * m.m[14] + \
+                   m.m[4]  * m.m[2] * m.m[15] - \
+                   m.m[4]  * m.m[3] * m.m[14] - \
+                   m.m[12] * m.m[2] * m.m[7] + \
+                   m.m[12] * m.m[3] * m.m[6];
+	result.m[7] = m.m[0] * m.m[6] * m.m[11] - \
+                   m.m[0] * m.m[7] * m.m[10] - \
+                   m.m[4] * m.m[2] * m.m[11] + \
+                   m.m[4] * m.m[3] * m.m[10] + \
+                   m.m[8] * m.m[2] * m.m[7] - \
+                   m.m[8] * m.m[3] * m.m[6];
+        result.m[8] = m.m[4]  * m.m[9] * m.m[15] - \
+                   m.m[4]  * m.m[11] * m.m[13] - \
+                   m.m[8]  * m.m[5] * m.m[15] + \
+                   m.m[8]  * m.m[7] * m.m[13] + \
+                   m.m[12] * m.m[5] * m.m[11] - \
+                   m.m[12] * m.m[7] * m.m[9];
+	result.m[9] = -m.m[0]  * m.m[9] * m.m[15] + \
+                   m.m[0]  * m.m[11] * m.m[13] + \
+                   m.m[8]  * m.m[1] * m.m[15] - \
+                   m.m[8]  * m.m[3] * m.m[13] - \
+                   m.m[12] * m.m[1] * m.m[11] + \
+                   m.m[12] * m.m[3] * m.m[9];
+	result.m[10] = m.m[0]  * m.m[5] * m.m[15] - \
+                    m.m[0]  * m.m[7] * m.m[13] - \
+                    m.m[4]  * m.m[1] * m.m[15] + \
+                    m.m[4]  * m.m[3] * m.m[13] + \
+                    m.m[12] * m.m[1] * m.m[7] - \
+                    m.m[12] * m.m[3] * m.m[5];
+	result.m[11] = -m.m[0] * m.m[5] * m.m[11] + \
+                    m.m[0] * m.m[7] * m.m[9] + \
+                    m.m[4] * m.m[1] * m.m[11] - \
+                    m.m[4] * m.m[3] * m.m[9] - \
+                    m.m[8] * m.m[1] * m.m[7] + \
+                    m.m[8] * m.m[3] * m.m[5];
+        result.m[12] = -m.m[4]  * m.m[9] * m.m[14] + \
+                    m.m[4]  * m.m[10] * m.m[13] + \
+                    m.m[8]  * m.m[5] * m.m[14] - \
+                    m.m[8]  * m.m[6] * m.m[13] - \
+                    m.m[12] * m.m[5] * m.m[10] + \
+                    m.m[12] * m.m[6] * m.m[9];
+        result.m[13] = m.m[0]  * m.m[9] * m.m[14] - \
+                    m.m[0]  * m.m[10] * m.m[13] - \
+                    m.m[8]  * m.m[1] * m.m[14] + \
+                    m.m[8]  * m.m[2] * m.m[13] + \
+                    m.m[12] * m.m[1] * m.m[10] - \
+                    m.m[12] * m.m[2] * m.m[9];
+        result.m[14] = -m.m[0]  * m.m[5] * m.m[14] + \
+                    m.m[0]  * m.m[6] * m.m[13] + \
+                    m.m[4]  * m.m[1] * m.m[14] - \
+                    m.m[4]  * m.m[2] * m.m[13] - \
+                    m.m[12] * m.m[1] * m.m[6] + \
+                    m.m[12] * m.m[2] * m.m[5];
+        result.m[15] = m.m[0] * m.m[5] * m.m[10] - \
+                    m.m[0] * m.m[6] * m.m[9] - \
+                    m.m[4] * m.m[1] * m.m[10] + \
+                    m.m[4] * m.m[2] * m.m[9] + \
+                    m.m[8] * m.m[1] * m.m[6] - \
+                    m.m[8] * m.m[2] * m.m[5];
+	delta = m.m[0] * m.m[0] + m.m[1] * m.m[4] + \
+		m.m[2] * m.m[8] + m.m[3] * m.m[12];
+	if (delta == 0.0f)
+		return m4identity();
+	delta = 1.0f / delta;
+	for (size_t i = 0; i < 16; ++i)
+		result.m[i] *= delta;
+	return result;
+}
+
+mat4 m4transpose(mat4 m)
+{
+	mat4 result;
+	for (size_t i = 0; i < 4; ++i)
+		for (size_t j = 0; j < 4; ++j)
+			result.m[i * 4 + j] = m.m[j * 4 + i];
+	return result;
+}
+
+mat4 m4multiply(mat4 m1, mat4 m2)
+{
+	mat4 m;
+	for (size_t i = 0; i < 4; ++i) {
+		for (size_t j = 0; j < 4; ++j) {
+			m.m[i * 4 + j] = 0.0f;
+			for (size_t k = 0; k < 4; ++k)
+				m.m[i * 4 + j] += m1.m[k * 4 + j] * \
+						  m2.m[i * 4 + k];
+		}
+	}
 	return m;
 }
 
@@ -421,19 +581,5 @@ mat4 m4camera(vec3 eye, vec3 target, vec3 up)
 	m.m[13] = -v3dot(up, eye);
 	m.m[14] = v3dot(direction, eye);
 	m.m[15] = 1.0f;
-	return m;
-}
-
-mat4 m4multiply(mat4 m1, mat4 m2)
-{
-	mat4 m;
-	for (int i = 0; i < 4; ++i) {
-		for (int j = 0; j < 4; ++j) {
-			m.m[i * 4 + j] = 0.0f;
-			for (int k = 0; k < 4; ++k)
-				m.m[i * 4 + j] += m1.m[k * 4 + j] * \
-						  m2.m[i * 4 + k];
-		}
-	}
 	return m;
 }

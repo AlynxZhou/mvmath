@@ -57,25 +57,27 @@ scalar sradians(scalar degrees);
 vec2 v2s(scalar s1, scalar s2);
 scalar v2length(vec2 v);
 vec2 v2normalize(vec2 v);
+vec2 v2abs(vec2 v);
+bool v2compare(vec2 v1, vec2 v2);
 vec2 v2add(vec2 v1, vec2 v2);
 vec2 v2substract(vec2 v1, vec2 v2);
 scalar v2dot(vec2 v1, vec2 v2);
 vec2 v2smultiply(vec2 v, scalar s);
 vec2 v2multiply(vec2 v1, vec2 v2);
-vec2 v2abs(vec2 v);
 vec2 v2clamp(vec2 v, vec2 vmin, vec2 vmax);
 
 vec3 v3s(scalar s1, scalar s2, scalar s3);
 vec3 v3v2s(vec2 v, scalar s);
 scalar v3length(vec3 v);
 vec3 v3normalize(vec3 v);
+bool v3compare(vec3 v1, vec3 v2);
+vec3 v3abs(vec3 v);
 vec3 v3add(vec3 v1, vec3 v2);
 vec3 v3substract(vec3 v1, vec3 v2);
 vec3 v3cross(vec3 v1, vec3 v2);
 scalar v3dot(vec3 v1, vec3 v2);
 vec3 v3smultiply(vec3 v, scalar s);
 vec3 v3multiply(vec3 v1, vec3 v2);
-vec3 v3abs(vec3 v);
 vec3 v3clamp(vec3 v, vec3 vmin, vec3 vmax);
 
 vec4 v4s(scalar s1, scalar s2, scalar s3, scalar s4);
@@ -84,15 +86,20 @@ vec4 v4v3s(vec3 v, scalar s);
 vec4 v4v2(vec2 v1, vec2 v2);
 scalar v4length(vec4 v);
 vec4 v4normalize(vec4 v);
+bool v4compare(vec4 v1, vec4 v2);
+vec4 v4abs(vec4 v);
 vec4 v4add(vec4 v1, vec4 v2);
 vec4 v4substract(vec4 v1, vec4 v2);
 scalar v4dot(vec4 v1, vec4 v2);
 vec4 v4smultiply(vec4 v, scalar s);
 vec4 v4multiply(vec4 v1, vec4 v2);
-vec4 v4abs(vec4 v);
 vec4 v4clamp(vec4 v, vec4 vmin, vec4 vmax);
 
 mat4 m4identity(void);
+bool m4compare(mat4 m1, mat4 m2);
+mat4 m4inverse(mat4 m);
+mat4 m4transpose(mat4 m);
+mat4 m4multiply(mat4 m1, mat4 m2);
 mat4 m4translate(vec3 delta);
 mat4 m4scale(vec3 scale);
 mat4 m4rotate(vec3 axis, scalar angle);
@@ -101,5 +108,4 @@ mat4 m4ortho(scalar left, scalar right, \
 	     scalar bottom, scalar top, \
 	     scalar near, scalar far);
 mat4 m4camera(vec3 eye, vec3 target, vec3 up);
-mat4 m4multiply(mat4 m1, mat4 m2);
 #endif
