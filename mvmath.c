@@ -234,7 +234,8 @@ vec4 v4smultiply(vec4 v, scalar s)
 
 vec4 v4multiply(vec4 v1, vec4 v2)
 {
-	return v4s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1], v1.v[2] * v2.v[2], v1.v[3] * v2.v[3]);
+	return v4s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1], \
+		   v1.v[2] * v2.v[2], v1.v[3] * v2.v[3]);
 }
 
 vec4 v4abs(vec4 v)
