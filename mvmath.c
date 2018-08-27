@@ -1,6 +1,3 @@
-#include <math.h>
-#include <stddef.h>
-#include <stdbool.h>
 #include "mvmath.h"
 #ifdef __DEBUG__
 #	include <stdio.h>
@@ -81,7 +78,7 @@ vec2 v2normalize(vec2 v)
 	return v2smultiply(v, 1.0f / v2length(v));
 }
 
-bool v2compare(vec2 v1, vec2 v2)
+int v2compare(vec2 v1, vec2 v2)
 {
 	return v1.v[0] == v2.v[0] && v1.v[1] == v2.v[1];
 }
@@ -142,7 +139,7 @@ vec3 v3normalize(vec3 v)
 	return v3smultiply(v, 1.0f / v3length(v));
 }
 
-bool v3compare(vec3 v1, vec3 v2)
+int v3compare(vec3 v1, vec3 v2)
 {
 	return v1.v[0] == v2.v[0] && v1.v[1] == v2.v[1] && v1.v[2] == v2.v[2];
 }
@@ -221,7 +218,7 @@ vec4 v4normalize(vec4 v)
 	return v4smultiply(v, 1.0f / v4length(v));
 }
 
-bool v4compare(vec4 v1, vec4 v2)
+int v4compare(vec4 v1, vec4 v2)
 {
 	return v1.v[0] == v2.v[0] && v1.v[1] == v2.v[1] && \
 	       v1.v[2] == v2.v[2] && v1.v[3] == v2.v[3];
@@ -291,13 +288,13 @@ mat4 m4identity(void)
 	return m;
 }
 
-bool m4compare(mat4 m1, mat4 m2)
+int m4compare(mat4 m1, mat4 m2)
 {
-	for (size_t i = 0; i < 4; ++i)
-		for (size_t j = 0; j < 4; ++j)
+	for (unsigned int i = 0; i < 4; ++i)
+		for (unsigned int j = 0; j < 4; ++j)
 			if (m1.m[i * 4 + j] != m2.m[i * 4 + j])
-				return false;
-	return true;
+				return 0;
+	return 1;
 }
 
 mat4 m4inverse(mat4 m)
@@ -405,7 +402,7 @@ mat4 m4inverse(mat4 m)
 	if (delta == 0.0f)
 		return m4identity();
 	delta = 1.0f / delta;
-	for (size_t i = 0; i < 16; ++i)
+	for (unsigned int i = 0; i < 16; ++i)
 		result.m[i] *= delta;
 	return result;
 }
@@ -413,8 +410,8 @@ mat4 m4inverse(mat4 m)
 mat4 m4transpose(mat4 m)
 {
 	mat4 result;
-	for (size_t i = 0; i < 4; ++i)
-		for (size_t j = 0; j < 4; ++j)
+	for (unsigned int i = 0; i < 4; ++i)
+		for (unsigned int j = 0; j < 4; ++j)
 			result.m[i * 4 + j] = m.m[j * 4 + i];
 	return result;
 }
@@ -422,10 +419,10 @@ mat4 m4transpose(mat4 m)
 mat4 m4multiply(mat4 m1, mat4 m2)
 {
 	mat4 m;
-	for (size_t i = 0; i < 4; ++i) {
-		for (size_t j = 0; j < 4; ++j) {
+	for (unsigned int i = 0; i < 4; ++i) {
+		for (unsigned int j = 0; j < 4; ++j) {
 			m.m[i * 4 + j] = 0.0f;
-			for (size_t k = 0; k < 4; ++k)
+			for (unsigned int k = 0; k < 4; ++k)
 				m.m[i * 4 + j] += m1.m[k * 4 + j] * \
 						  m2.m[i * 4 + k];
 		}

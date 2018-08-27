@@ -1,5 +1,6 @@
 #ifndef __MVMATH_H__
 #	define __MVMATH_H__
+#	include <math.h>
 #	define PI 3.141593f
 typedef float scalar;
 /*
@@ -58,7 +59,7 @@ vec2 v2s(scalar s1, scalar s2);
 scalar v2length(vec2 v);
 vec2 v2normalize(vec2 v);
 vec2 v2abs(vec2 v);
-bool v2compare(vec2 v1, vec2 v2);
+int v2compare(vec2 v1, vec2 v2);
 vec2 v2add(vec2 v1, vec2 v2);
 vec2 v2substract(vec2 v1, vec2 v2);
 scalar v2dot(vec2 v1, vec2 v2);
@@ -70,7 +71,7 @@ vec3 v3s(scalar s1, scalar s2, scalar s3);
 vec3 v3v2s(vec2 v, scalar s);
 scalar v3length(vec3 v);
 vec3 v3normalize(vec3 v);
-bool v3compare(vec3 v1, vec3 v2);
+int v3compare(vec3 v1, vec3 v2);
 vec3 v3abs(vec3 v);
 vec3 v3add(vec3 v1, vec3 v2);
 vec3 v3substract(vec3 v1, vec3 v2);
@@ -86,7 +87,7 @@ vec4 v4v3s(vec3 v, scalar s);
 vec4 v4v2(vec2 v1, vec2 v2);
 scalar v4length(vec4 v);
 vec4 v4normalize(vec4 v);
-bool v4compare(vec4 v1, vec4 v2);
+int v4compare(vec4 v1, vec4 v2);
 vec4 v4abs(vec4 v);
 vec4 v4add(vec4 v1, vec4 v2);
 vec4 v4substract(vec4 v1, vec4 v2);
@@ -96,7 +97,7 @@ vec4 v4multiply(vec4 v1, vec4 v2);
 vec4 v4clamp(vec4 v, vec4 vmin, vec4 vmax);
 
 mat4 m4identity(void);
-bool m4compare(mat4 m1, mat4 m2);
+int m4compare(mat4 m1, mat4 m2);
 mat4 m4inverse(mat4 m);
 mat4 m4transpose(mat4 m);
 mat4 m4multiply(mat4 m1, mat4 m2);
