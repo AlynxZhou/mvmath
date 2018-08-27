@@ -51,6 +51,8 @@ scalar sabs(scalar s);
 scalar smax(scalar s1, scalar s2);
 scalar smin(scalar s1, scalar s2);
 scalar sclamp(scalar s, scalar min, scalar max);
+scalar sdegrees(scalar radians);
+scalar sradians(scalar degrees);
 
 vec2 v2s(scalar s1, scalar s2);
 scalar v2length(vec2 v);
@@ -58,7 +60,8 @@ vec2 v2normalize(vec2 v);
 vec2 v2add(vec2 v1, vec2 v2);
 vec2 v2substract(vec2 v1, vec2 v2);
 scalar v2dot(vec2 v1, vec2 v2);
-vec2 v2multiply(vec2 v, scalar s);
+vec2 v2smultiply(vec2 v, scalar s);
+vec2 v2multiply(vec2 v1, vec2 v2);
 vec2 v2abs(vec2 v);
 vec2 v2clamp(vec2 v, vec2 vmin, vec2 vmax);
 
@@ -70,7 +73,8 @@ vec3 v3add(vec3 v1, vec3 v2);
 vec3 v3substract(vec3 v1, vec3 v2);
 vec3 v3cross(vec3 v1, vec3 v2);
 scalar v3dot(vec3 v1, vec3 v2);
-vec3 v3multiply(vec3 v, scalar s);
+vec3 v3smultiply(vec3 v, scalar s);
+vec3 v3multiply(vec3 v1, vec3 v2);
 vec3 v3abs(vec3 v);
 vec3 v3clamp(vec3 v, vec3 vmin, vec3 vmax);
 
@@ -83,7 +87,8 @@ vec4 v4normalize(vec4 v);
 vec4 v4add(vec4 v1, vec4 v2);
 vec4 v4substract(vec4 v1, vec4 v2);
 scalar v4dot(vec4 v1, vec4 v2);
-vec4 v4multiply(vec4 v, scalar s);
+vec4 v4smultiply(vec4 v, scalar s);
+vec4 v4multiply(vec4 v1, vec4 v2);
 vec4 v4abs(vec4 v);
 vec4 v4clamp(vec4 v, vec4 vmin, vec4 vmax);
 

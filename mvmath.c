@@ -54,6 +54,16 @@ scalar sclamp(scalar s, scalar min, scalar max)
 	return smax(min, smin(max, s));
 }
 
+scalar sdegrees(scalar radians)
+{
+	return radians * 180 / PI;
+}
+
+scalar sradians(scalar degrees)
+{
+	return degrees * PI / 180;
+}
+
 vec2 v2s(scalar s1, scalar s2)
 {
 	return (vec2){{s1, s2}};
@@ -66,7 +76,7 @@ scalar v2length(vec2 v)
 
 vec2 v2normalize(vec2 v)
 {
-	return v2multiply(v, 1.0f / v2length(v));
+	return v2smultiply(v, 1.0f / v2length(v));
 }
 
 vec2 v2add(vec2 v1, vec2 v2)
@@ -84,9 +94,14 @@ scalar v2dot(vec2 v1, vec2 v2)
 	return v1.v[0] * v2.v[0] + v1.v[1] * v2.v[1];
 }
 
-vec2 v2multiply(vec2 v, scalar s)
+vec2 v2smultiply(vec2 v, scalar s)
 {
 	return v2s(v.v[0] * s, v.v[1] * s);
+}
+
+vec2 v2multiply(vec2 v1, vec2 v2)
+{
+	return v2s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1]);
 }
 
 vec2 v2abs(vec2 v)
@@ -117,7 +132,7 @@ scalar v3length(vec3 v)
 
 vec3 v3normalize(vec3 v)
 {
-	return v3multiply(v, 1.0f / v3length(v));
+	return v3smultiply(v, 1.0f / v3length(v));
 }
 
 vec3 v3add(vec3 v1, vec3 v2)
@@ -142,9 +157,14 @@ scalar v3dot(vec3 v1, vec3 v2)
 	return v1.v[0] * v2.v[0] + v1.v[1] * v2.v[1] + v1.v[2] * v2.v[2];
 }
 
-vec3 v3multiply(vec3 v, scalar s)
+vec3 v3smultiply(vec3 v, scalar s)
 {
 	return v3s(v.v[0] * s, v.v[1] * s, v.v[2] * s);
+}
+
+vec3 v3multiply(vec3 v1, vec3 v2)
+{
+	return v3s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1], v1.v[2] * v2.v[2]);
 }
 
 vec3 v3abs(vec3 v)
@@ -186,7 +206,7 @@ scalar v4length(vec4 v)
 
 vec4 v4normalize(vec4 v)
 {
-	return v4multiply(v, 1.0f / v4length(v));
+	return v4smultiply(v, 1.0f / v4length(v));
 }
 
 vec4 v4add(vec4 v1, vec4 v2)
@@ -207,9 +227,14 @@ scalar v4dot(vec4 v1, vec4 v2)
 	       v1.v[2] * v2.v[2] + v1.v[3] * v2.v[3];
 }
 
-vec4 v4multiply(vec4 v, scalar s)
+vec4 v4smultiply(vec4 v, scalar s)
 {
 	return v4s(v.v[0] * s, v.v[1] * s, v.v[2] * s, v.v[3] * s);
+}
+
+vec4 v4multiply(vec4 v1, vec4 v2)
+{
+	return v4s(v1.v[0] * v2.v[0], v1.v[1] * v2.v[1], v1.v[2] * v2.v[2], v1.v[3] * v2.v[3]);
 }
 
 vec4 v4abs(vec4 v)
