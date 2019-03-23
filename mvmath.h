@@ -1,6 +1,7 @@
 #ifndef __MVMATH_H__
 #	define __MVMATH_H__
 #	include <math.h>
+#	include <stdarg.h>
 #	define PI 3.141593f
 typedef float scalar;
 /*

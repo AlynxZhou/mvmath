@@ -269,22 +269,22 @@ vec4 v4clamp(vec4 v, vec4 vmin, vec4 vmax)
 mat4 m4identity(void)
 {
 	mat4 m;
-        m.m[0] = 1.0f;
-        m.m[1] = 0.0f;
-        m.m[2] = 0.0f;
-        m.m[3] = 0.0f;
-        m.m[4] = 0.0f;
-        m.m[5] = 1.0f;
-        m.m[6] = 0.0f;
-        m.m[7] = 0.0f;
-        m.m[8] = 0.0f;
-        m.m[9] = 0.0f;
-        m.m[10] = 1.0f;
-        m.m[11] = 0.0f;
-        m.m[12] = 0.0f;
-        m.m[13] = 0.0f;
-        m.m[14] = 0.0f;
-        m.m[15] = 1.0f;
+	m.m[0] = 1.0f;
+	m.m[1] = 0.0f;
+	m.m[2] = 0.0f;
+	m.m[3] = 0.0f;
+	m.m[4] = 0.0f;
+	m.m[5] = 1.0f;
+	m.m[6] = 0.0f;
+	m.m[7] = 0.0f;
+	m.m[8] = 0.0f;
+	m.m[9] = 0.0f;
+	m.m[10] = 1.0f;
+	m.m[11] = 0.0f;
+	m.m[12] = 0.0f;
+	m.m[13] = 0.0f;
+	m.m[14] = 0.0f;
+	m.m[15] = 1.0f;
 	return m;
 }
 
@@ -302,11 +302,11 @@ mat4 m4inverse(mat4 m)
 	mat4 result;
 	scalar delta = 0.0f;
 	result.m[0] = m.m[5]  * m.m[10] * m.m[15] - \
-                      m.m[5]  * m.m[11] * m.m[14] - \
-                      m.m[9]  * m.m[6]  * m.m[15] + \
-                      m.m[9]  * m.m[7]  * m.m[14] + \
-                      m.m[13] * m.m[6]  * m.m[11] - \
-                      m.m[13] * m.m[7]  * m.m[10];
+		      m.m[5]  * m.m[11] * m.m[14] - \
+		      m.m[9]  * m.m[6]  * m.m[15] + \
+		      m.m[9]  * m.m[7]  * m.m[14] + \
+		      m.m[13] * m.m[6]  * m.m[11] - \
+		      m.m[13] * m.m[7]  * m.m[10];
 	result.m[1] = -m.m[1]  * m.m[10] * m.m[15] + \
 		      m.m[1]  * m.m[11] * m.m[14] + \
 		      m.m[9]  * m.m[2] * m.m[15] - \
@@ -325,12 +325,12 @@ mat4 m4inverse(mat4 m)
 		      m.m[5] * m.m[3] * m.m[10] - \
 		      m.m[9] * m.m[2] * m.m[7] + \
 		      m.m[9] * m.m[3] * m.m[6];
-        result.m[4] = -m.m[4]  * m.m[10] * m.m[15] + \
-                      m.m[4]  * m.m[11] * m.m[14] + \
-                      m.m[8]  * m.m[6]  * m.m[15] - \
-                      m.m[8]  * m.m[7]  * m.m[14] - \
-                      m.m[12] * m.m[6]  * m.m[11] + \
-                      m.m[12] * m.m[7]  * m.m[10];
+	result.m[4] = -m.m[4]  * m.m[10] * m.m[15] + \
+		      m.m[4]  * m.m[11] * m.m[14] + \
+		      m.m[8]  * m.m[6]  * m.m[15] - \
+		      m.m[8]  * m.m[7]  * m.m[14] - \
+		      m.m[12] * m.m[6]  * m.m[11] + \
+		      m.m[12] * m.m[7]  * m.m[10];
 	result.m[5] = m.m[0]  * m.m[10] * m.m[15] - \
 		      m.m[0]  * m.m[11] * m.m[14] - \
 		      m.m[8]  * m.m[2] * m.m[15] + \
@@ -338,65 +338,65 @@ mat4 m4inverse(mat4 m)
 		      m.m[12] * m.m[2] * m.m[11] - \
 		      m.m[12] * m.m[3] * m.m[10];
 	result.m[6] = -m.m[0]  * m.m[6] * m.m[15] + \
-                      m.m[0]  * m.m[7] * m.m[14] + \
-                      m.m[4]  * m.m[2] * m.m[15] - \
-                      m.m[4]  * m.m[3] * m.m[14] - \
-                      m.m[12] * m.m[2] * m.m[7] + \
-                      m.m[12] * m.m[3] * m.m[6];
+		      m.m[0]  * m.m[7] * m.m[14] + \
+		      m.m[4]  * m.m[2] * m.m[15] - \
+		      m.m[4]  * m.m[3] * m.m[14] - \
+		      m.m[12] * m.m[2] * m.m[7] + \
+		      m.m[12] * m.m[3] * m.m[6];
 	result.m[7] = m.m[0] * m.m[6] * m.m[11] - \
-                      m.m[0] * m.m[7] * m.m[10] - \
-                      m.m[4] * m.m[2] * m.m[11] + \
-                      m.m[4] * m.m[3] * m.m[10] + \
-                      m.m[8] * m.m[2] * m.m[7] - \
-                      m.m[8] * m.m[3] * m.m[6];
-        result.m[8] = m.m[4]  * m.m[9] * m.m[15] - \
-                      m.m[4]  * m.m[11] * m.m[13] - \
-                      m.m[8]  * m.m[5] * m.m[15] + \
-                      m.m[8]  * m.m[7] * m.m[13] + \
-                      m.m[12] * m.m[5] * m.m[11] - \
-                      m.m[12] * m.m[7] * m.m[9];
+		      m.m[0] * m.m[7] * m.m[10] - \
+		      m.m[4] * m.m[2] * m.m[11] + \
+		      m.m[4] * m.m[3] * m.m[10] + \
+		      m.m[8] * m.m[2] * m.m[7] - \
+		      m.m[8] * m.m[3] * m.m[6];
+	result.m[8] = m.m[4]  * m.m[9] * m.m[15] - \
+		      m.m[4]  * m.m[11] * m.m[13] - \
+		      m.m[8]  * m.m[5] * m.m[15] + \
+		      m.m[8]  * m.m[7] * m.m[13] + \
+		      m.m[12] * m.m[5] * m.m[11] - \
+		      m.m[12] * m.m[7] * m.m[9];
 	result.m[9] = -m.m[0]  * m.m[9] * m.m[15] + \
-                      m.m[0]  * m.m[11] * m.m[13] + \
-                      m.m[8]  * m.m[1] * m.m[15] - \
-                      m.m[8]  * m.m[3] * m.m[13] - \
-                      m.m[12] * m.m[1] * m.m[11] + \
-                      m.m[12] * m.m[3] * m.m[9];
+		      m.m[0]  * m.m[11] * m.m[13] + \
+		      m.m[8]  * m.m[1] * m.m[15] - \
+		      m.m[8]  * m.m[3] * m.m[13] - \
+		      m.m[12] * m.m[1] * m.m[11] + \
+		      m.m[12] * m.m[3] * m.m[9];
 	result.m[10] = m.m[0]  * m.m[5] * m.m[15] - \
-                       m.m[0]  * m.m[7] * m.m[13] - \
-                       m.m[4]  * m.m[1] * m.m[15] + \
-                       m.m[4]  * m.m[3] * m.m[13] + \
-                       m.m[12] * m.m[1] * m.m[7] - \
-                       m.m[12] * m.m[3] * m.m[5];
+		       m.m[0]  * m.m[7] * m.m[13] - \
+		       m.m[4]  * m.m[1] * m.m[15] + \
+		       m.m[4]  * m.m[3] * m.m[13] + \
+		       m.m[12] * m.m[1] * m.m[7] - \
+		       m.m[12] * m.m[3] * m.m[5];
 	result.m[11] = -m.m[0] * m.m[5] * m.m[11] + \
-                       m.m[0] * m.m[7] * m.m[9] + \
-                       m.m[4] * m.m[1] * m.m[11] - \
-                       m.m[4] * m.m[3] * m.m[9] - \
-                       m.m[8] * m.m[1] * m.m[7] + \
-                       m.m[8] * m.m[3] * m.m[5];
-        result.m[12] = -m.m[4]  * m.m[9] * m.m[14] + \
-                       m.m[4]  * m.m[10] * m.m[13] + \
-                       m.m[8]  * m.m[5] * m.m[14] - \
-                       m.m[8]  * m.m[6] * m.m[13] - \
-                       m.m[12] * m.m[5] * m.m[10] + \
-                       m.m[12] * m.m[6] * m.m[9];
-        result.m[13] = m.m[0]  * m.m[9] * m.m[14] - \
-                       m.m[0]  * m.m[10] * m.m[13] - \
-                       m.m[8]  * m.m[1] * m.m[14] + \
-                       m.m[8]  * m.m[2] * m.m[13] + \
-                       m.m[12] * m.m[1] * m.m[10] - \
-                       m.m[12] * m.m[2] * m.m[9];
-        result.m[14] = -m.m[0]  * m.m[5] * m.m[14] + \
-                       m.m[0]  * m.m[6] * m.m[13] + \
-                       m.m[4]  * m.m[1] * m.m[14] - \
-                       m.m[4]  * m.m[2] * m.m[13] - \
-                       m.m[12] * m.m[1] * m.m[6] + \
-                       m.m[12] * m.m[2] * m.m[5];
-        result.m[15] = m.m[0] * m.m[5] * m.m[10] - \
-                       m.m[0] * m.m[6] * m.m[9] - \
-                       m.m[4] * m.m[1] * m.m[10] + \
-                       m.m[4] * m.m[2] * m.m[9] + \
-                       m.m[8] * m.m[1] * m.m[6] - \
-                       m.m[8] * m.m[2] * m.m[5];
+		       m.m[0] * m.m[7] * m.m[9] + \
+		       m.m[4] * m.m[1] * m.m[11] - \
+		       m.m[4] * m.m[3] * m.m[9] - \
+		       m.m[8] * m.m[1] * m.m[7] + \
+		       m.m[8] * m.m[3] * m.m[5];
+	result.m[12] = -m.m[4]  * m.m[9] * m.m[14] + \
+		       m.m[4]  * m.m[10] * m.m[13] + \
+		       m.m[8]  * m.m[5] * m.m[14] - \
+		       m.m[8]  * m.m[6] * m.m[13] - \
+		       m.m[12] * m.m[5] * m.m[10] + \
+		       m.m[12] * m.m[6] * m.m[9];
+	result.m[13] = m.m[0]  * m.m[9] * m.m[14] - \
+		       m.m[0]  * m.m[10] * m.m[13] - \
+		       m.m[8]  * m.m[1] * m.m[14] + \
+		       m.m[8]  * m.m[2] * m.m[13] + \
+		       m.m[12] * m.m[1] * m.m[10] - \
+		       m.m[12] * m.m[2] * m.m[9];
+	result.m[14] = -m.m[0]  * m.m[5] * m.m[14] + \
+		       m.m[0]  * m.m[6] * m.m[13] + \
+		       m.m[4]  * m.m[1] * m.m[14] - \
+		       m.m[4]  * m.m[2] * m.m[13] - \
+		       m.m[12] * m.m[1] * m.m[6] + \
+		       m.m[12] * m.m[2] * m.m[5];
+	result.m[15] = m.m[0] * m.m[5] * m.m[10] - \
+		       m.m[0] * m.m[6] * m.m[9] - \
+		       m.m[4] * m.m[1] * m.m[10] + \
+		       m.m[4] * m.m[2] * m.m[9] + \
+		       m.m[8] * m.m[1] * m.m[6] - \
+		       m.m[8] * m.m[2] * m.m[5];
 	delta = m.m[0] * m.m[0] + m.m[1] * m.m[4] + \
 		m.m[2] * m.m[8] + m.m[3] * m.m[12];
 	if (delta == 0.0f)
@@ -477,15 +477,11 @@ mat4 m4scale(vec3 scale)
 mat4 m4rotate(vec3 axis, scalar angle)
 {
 	mat4 m;
+	// In left hand coordinate,
+	// positive angle leads to a counter-clockwise rotation.
 	axis = v3normalize(axis);
-	/*
-	 * Don't know why but if not negetive here,
-	 * you will get a wrong direction of rotation.
-	 * Use a negetive to make positive angle
-	 * shows clockwise rotation.
-	 */
-	const scalar s = sinf(-angle);
-	const scalar c = cosf(-angle);
+	const scalar s = sinf(angle);
+	const scalar c = cosf(angle);
 	const scalar temp = 1.0f - c;
 	m.m[0] = temp * axis.v[0] * axis.v[0] + c;
 	m.m[1] = temp * axis.v[0] * axis.v[1] - axis.v[2] * s;
@@ -509,30 +505,27 @@ mat4 m4rotate(vec3 axis, scalar angle)
 mat4 m4perspective(scalar fov, scalar aspect, scalar near, scalar far)
 {
 	mat4 m;
-	// near and far in param should be OpenGL right hand coordinate.
-	// That is, outside screen is positive and inside screen is negative.
-	// Because we look to screen, they shoule be negative in param.
-	// And we change it for calculating.
-	near = -near;
-	far = -far;
+	// near and far in param should be OpenGL left hand coordinate.
+	// That is, outside screen is negative and inside screen is positive.
+	// Because we look to screen, they shoule be positive in param.
 	const scalar dz = near - far;
 	const scalar cot = 1.0f / tanf(fov / 2.0f);
 	m.m[0] = cot / aspect;
-        m.m[1] = 0.0f;
-        m.m[2] = 0.0f;
-        m.m[3] = 0.0f;
-        m.m[4] = 0.0f;
-        m.m[5] = cot;
-        m.m[6] = 0.0f;
-        m.m[7] = 0.0f;
-        m.m[8] = 0.0f;
-        m.m[9] = 0.0f;
-        m.m[10] = (far + near) / dz;
-        m.m[11] = -1.0f;
-        m.m[12] = 0.0f;
-        m.m[13] = 0.0f;
-        m.m[14] = (2.0f * far * near) / dz;
-        m.m[15] = 0.0f;
+	m.m[1] = 0.0f;
+	m.m[2] = 0.0f;
+	m.m[3] = 0.0f;
+	m.m[4] = 0.0f;
+	m.m[5] = cot;
+	m.m[6] = 0.0f;
+	m.m[7] = 0.0f;
+	m.m[8] = 0.0f;
+	m.m[9] = 0.0f;
+	m.m[10] = (far + near) / dz;
+	m.m[11] = -1.0f;
+	m.m[12] = 0.0f;
+	m.m[13] = 0.0f;
+	m.m[14] = (2.0f * far * near) / dz;
+	m.m[15] = 0.0f;
 	return m;
 }
 
@@ -563,24 +556,24 @@ mat4 m4ortho(scalar left, scalar right, \
 mat4 m4camera(vec3 eye, vec3 target, vec3 up)
 {
 	mat4 m;
-	vec3 direction = v3substract(target, eye);
-	direction = v3normalize(direction);
-	vec3 right = v3cross(direction, up);
-	right = v3normalize(right);
-	up = v3cross(right, direction);
-	m.m[0] = right.v[0];
+	// By default cross works in right hand coordinate.
+	// Those cross sequences make a left hand coordinate.
+	vec3 direction = v3normalize(v3substract(target, eye));
+	vec3 left = v3normalize(v3cross(up, direction));
+	up = v3cross(direction, left);
+	m.m[0] = left.v[0];
 	m.m[1] = up.v[0];
 	m.m[2] = -direction.v[0];
 	m.m[3] = 0.0f;
-	m.m[4] = right.v[1];
+	m.m[4] = left.v[1];
 	m.m[5] = up.v[1];
 	m.m[6] = -direction.v[1];
 	m.m[7] = 0.0f;
-	m.m[8] = right.v[2];
+	m.m[8] = left.v[2];
 	m.m[9] = up.v[2];
 	m.m[10] = -direction.v[2];
 	m.m[11] = 0.0f;
-	m.m[12] = -v3dot(right, eye);
+	m.m[12] = -v3dot(left, eye);
 	m.m[13] = -v3dot(up, eye);
 	m.m[14] = v3dot(direction, eye);
 	m.m[15] = 1.0f;
