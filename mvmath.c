@@ -509,6 +509,12 @@ mat4 m4rotate(vec3 axis, scalar angle)
 mat4 m4perspective(scalar fov, scalar aspect, scalar near, scalar far)
 {
 	mat4 m;
+	// near and far in param should be OpenGL right hand coordinate.
+	// That is, outside screen is positive and inside screen is negative.
+	// Because we look to screen, they shoule be negative in param.
+	// And we change it for calculating.
+	near = -near;
+	far = -far;
 	const scalar dz = near - far;
 	const scalar cot = 1.0f / tanf(fov / 2.0f);
 	m.m[0] = cot / aspect;
