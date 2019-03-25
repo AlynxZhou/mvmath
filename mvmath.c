@@ -1,4 +1,4 @@
-#include "mvmath.h"
+#include "mvmath/mvmath.h"
 #ifdef __DEBUG__
 #	include <stdio.h>
 int v2print(vec2 v)
