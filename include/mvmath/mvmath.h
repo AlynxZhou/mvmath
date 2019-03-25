@@ -107,7 +107,7 @@ mat4 m4scale(vec3 scale);
 mat4 m4rotate(vec3 axis, scalar angle);
 mat4 m4perspective(scalar fov, scalar aspect, scalar near, scalar far);
 mat4 m4ortho(scalar left, scalar right, \
-	     scalar bottom, scalar top, \
+	     scalar top, scalar bottom, \
 	     scalar near, scalar far);
 mat4 m4camera(vec3 eye, vec3 target, vec3 up);
 #endif

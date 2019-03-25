@@ -530,7 +530,7 @@ mat4 m4perspective(scalar fov, scalar aspect, scalar near, scalar far)
 }
 
 mat4 m4ortho(scalar left, scalar right, \
-	     scalar bottom, scalar top, \
+	     scalar top, scalar bottom, \
 	     scalar near, scalar far)
 {
 	mat4 m;
