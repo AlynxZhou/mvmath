@@ -556,24 +556,25 @@ mat4 m4ortho(scalar left, scalar right, \
 mat4 m4camera(vec3 eye, vec3 target, vec3 up)
 {
 	mat4 m;
-	// By default cross works in right hand coordinate.
-	// Those cross sequences make a left hand coordinate.
 	vec3 direction = v3normalize(v3substract(target, eye));
-	vec3 left = v3normalize(v3cross(up, direction));
-	up = v3cross(direction, left);
-	m.m[0] = left.v[0];
+	// We are using a left hand coordinate,
+	// but camera matrix needs right direction,
+	// so we change cross sequence.
+	vec3 right = v3normalize(v3cross(up, direction));
+	up = v3cross(direction, right);
+	m.m[0] = right.v[0];
 	m.m[1] = up.v[0];
 	m.m[2] = -direction.v[0];
 	m.m[3] = 0.0f;
-	m.m[4] = left.v[1];
+	m.m[4] = right.v[1];
 	m.m[5] = up.v[1];
 	m.m[6] = -direction.v[1];
 	m.m[7] = 0.0f;
-	m.m[8] = left.v[2];
+	m.m[8] = right.v[2];
 	m.m[9] = up.v[2];
 	m.m[10] = -direction.v[2];
 	m.m[11] = 0.0f;
-	m.m[12] = -v3dot(left, eye);
+	m.m[12] = -v3dot(right, eye);
 	m.m[13] = -v3dot(up, eye);
 	m.m[14] = v3dot(direction, eye);
 	m.m[15] = 1.0f;
