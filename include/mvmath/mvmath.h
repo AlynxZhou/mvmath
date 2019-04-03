@@ -57,6 +57,8 @@ scalar sdegrees(scalar radians);
 scalar sradians(scalar degrees);
 
 vec2 v2s(scalar s1, scalar s2);
+vec2 v2v3(vec3 v);
+vec2 v2v4(vec4 v);
 scalar v2length(vec2 v);
 vec2 v2normalize(vec2 v);
 vec2 v2abs(vec2 v);
@@ -70,6 +72,7 @@ vec2 v2clamp(vec2 v, vec2 vmin, vec2 vmax);
 
 vec3 v3s(scalar s1, scalar s2, scalar s3);
 vec3 v3v2s(vec2 v, scalar s);
+vec3 v3v4(vec4 v);
 scalar v3length(vec3 v);
 vec3 v3normalize(vec3 v);
 int v3compare(vec3 v1, vec3 v2);
@@ -102,6 +105,7 @@ int m4compare(mat4 m1, mat4 m2);
 mat4 m4inverse(mat4 m);
 mat4 m4transpose(mat4 m);
 mat4 m4multiply(mat4 m1, mat4 m2);
+vec4 m4v4multiply(mat4 m, vec4 v);
 mat4 m4translate(vec3 delta);
 mat4 m4scale(vec3 scale);
 mat4 m4rotate(vec3 axis, scalar angle);

@@ -68,6 +68,16 @@ vec2 v2s(scalar s1, scalar s2)
 	return (vec2){{s1, s2}};
 }
 
+vec2 v2v3(vec3 v)
+{
+	return v2s(v.v[0], v.v[1]);
+}
+
+vec2 v2v4(vec4 v)
+{
+	return v2s(v.v[0], v.v[1]);
+}
+
 scalar v2length(vec2 v)
 {
 	return sqrtf(v2dot(v, v));
@@ -127,6 +137,11 @@ vec3 v3s(scalar s1, scalar s2, scalar s3)
 vec3 v3v2s(vec2 v, scalar s)
 {
 	return v3s(v.v[0], v.v[1], s);
+}
+
+vec3 v3v4(vec4 v)
+{
+	return v3s(v.v[0], v.v[1], v.v[2]);
 }
 
 scalar v3length(vec3 v)
@@ -422,12 +437,25 @@ mat4 m4multiply(mat4 m1, mat4 m2)
 	for (unsigned int i = 0; i < 4; ++i) {
 		for (unsigned int j = 0; j < 4; ++j) {
 			m.m[i * 4 + j] = 0.0f;
-			for (unsigned int k = 0; k < 4; ++k)
+			for (unsigned int k = 0; k < 4; ++k) {
 				m.m[i * 4 + j] += m1.m[k * 4 + j] * \
 						  m2.m[i * 4 + k];
+			}
 		}
 	}
 	return m;
+}
+
+vec4 m4v4multiply(mat4 m, vec4 v)
+{
+	vec4 result;
+	for (unsigned int i = 0; i < 4; ++i) {
+		result.v[i] = 0.0f;
+		for (unsigned int j = 0; j < 4; ++j) {
+			result.v[i] += m.m[j * 4 + i] * v.v[j];
+		}
+	}
+	return result;
 }
 
 mat4 m4translate(vec3 delta)
