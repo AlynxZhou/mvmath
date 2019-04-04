@@ -1,8 +1,23 @@
+/*
+ * Copyright 2019 Alynx Zhou
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 #ifndef __MVMATH_H__
-#	define __MVMATH_H__
-#	include <math.h>
-#	include <stdarg.h>
-#	define PI 3.141593f
+#define __MVMATH_H__
+#include <math.h>
+#include <stdarg.h>
+#define PI 3.141593f
 typedef float scalar;
 /*
  * vec2 is a scalar[2] like this:
@@ -110,8 +125,7 @@ mat4 m4translate(vec3 delta);
 mat4 m4scale(vec3 scale);
 mat4 m4rotate(vec3 axis, scalar angle);
 mat4 m4perspective(scalar fov, scalar aspect, scalar near, scalar far);
-mat4 m4ortho(scalar left, scalar right, \
-	     scalar top, scalar bottom, \
-	     scalar near, scalar far);
+mat4 m4ortho(scalar left, scalar right, scalar top, scalar bottom, scalar near,
+	     scalar far);
 mat4 m4camera(vec3 eye, vec3 target, vec3 up);
 #endif
