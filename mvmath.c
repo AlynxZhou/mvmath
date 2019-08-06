@@ -69,17 +69,20 @@ scalar sclamp(scalar s, scalar min, scalar max)
 
 scalar sdegrees(scalar radians)
 {
-	return radians * 180 / PI;
+	return radians * 180.0f / PI;
 }
 
 scalar sradians(scalar degrees)
 {
-	return degrees * PI / 180;
+	return degrees * PI / 180.0f;
 }
 
 vec2 v2s(scalar s1, scalar s2)
 {
-	return (vec2){ { s1, s2 } };
+	vec2 v;
+	v.v[0] = s1;
+	v.v[1] = s2;
+	return v;
 }
 
 vec2 v2v3(vec3 v)
@@ -145,7 +148,11 @@ vec2 v2clamp(vec2 v, vec2 vmin, vec2 vmax)
 
 vec3 v3s(scalar s1, scalar s2, scalar s3)
 {
-	return (vec3){ { s1, s2, s3 } };
+	vec3 v;
+	v.v[0] = s1;
+	v.v[1] = s2;
+	v.v[2] = s3;
+	return v;
 }
 
 vec3 v3v2s(vec2 v, scalar s)
@@ -219,7 +226,12 @@ vec3 v3clamp(vec3 v, vec3 vmin, vec3 vmax)
 
 vec4 v4s(scalar s1, scalar s2, scalar s3, scalar s4)
 {
-	return (vec4){ { s1, s2, s3, s4 } };
+	vec4 v;
+	v.v[0] = s1;
+	v.v[1] = s2;
+	v.v[2] = s3;
+	v.v[3] = s4;
+	return v;
 }
 
 vec4 v4v2s(vec2 v, scalar s1, scalar s2)

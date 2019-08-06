@@ -16,7 +16,26 @@
 #ifndef __MVMATH_H__
 #define __MVMATH_H__
 #include <math.h>
+
 #define PI 3.141593f
+
+#define SABS(S) ((S) >= 0 ? (S) : -(S))
+#define SMAX(S1, S2) ((S1) > (S2) ? (S1) : (S2))
+#define SMIN(S1, S2) ((S1) < (S2) ? (S1) : (S2))
+#define SCLAMP(S, MIN, MAX) (SMAX(MIN, SMIN(MAX, S)))
+#define SDEGREES(RADIANS) ((RADIANS) * PI / 180.0f)
+#define SRADIANS(DEGREES) ((DEGREES) * 180.0f / PI)
+#define VARRAY(V) ((V).v)
+#define VX(V) VARRAY(V)[0]
+#define VY(V) VARRAY(V)[1]
+#define VZ(V) VARRAY(V)[2]
+#define VW(V) VARRAY(V)[3]
+#define VR(V) VR(V)
+#define VG(V) VG(V)
+#define VB(V) VB(V)
+#define VA(V) VA(V)
+#define MARRAY(M) ((M).m)
+
 typedef float scalar;
 /*
  * vec2 is a scalar[2] like this:
