@@ -4,29 +4,21 @@ mvmath
 A simple C implemention of some GLM Matrix and Vector Math functions.
 ---------------------------------------------------------------------
 
-This library builds a left hand coordinate.
-
-- From left to right is -1.0 to +1.0 in x axis.
-- From bottom to top is -1.0 to +1.0 in x axis.
-- From outside to inside is -1.0 to +1.0 in x axis.
-
-Based on struct of array.
+This library is based on OpenGL left hand coordinate.
 
 You need to link C standard math library libm.so (`-lm`) to use this.
 
-Data types:
+# Data types
 
-- vec2, vec3, vec4
-
+- vec2
+- vec3
+- vec4
 - mat4
 
-Build:
+They are just structs of array.
 
-```
-$ mkdir build
-$ cd build
-$ cmake -DCMAKE_BUILD_TYPE=Debug ..
-$ make
-```
+# Usage
 
-Remove `-DCMAKE_BUILD_TYPE=Debug` if you don't need to debug.
+Add it as a submodule to your project and use Meson to build and compile it. If your project does not use Meson, you can directly copy `srcs/mvmath.{c,h}` to your source tree.
+
+If you want to use custom print function, define `MVPRINT` before include `mvmath.h`, for example `#define MVPRINT g_debug`. Otherwise it will use `printf` by default.

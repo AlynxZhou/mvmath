@@ -1,7 +1,0 @@
-cmake_minimum_required(VERSION 2.8)
-set(CMAKE_C_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -std=c11 -Wall -g -D__DEBUG__")
-set(CMAKE_C_FLAGS_RELEASE "$ENV{CXXFLAGS} -O2 -std=c11")
-include_directories("include")
-aux_source_directory("." MVMATH_SRCS)
-add_library("mvmath" ${MVMATH_SRCS})
-target_include_directories("mvmath" PUBLIC "include")
