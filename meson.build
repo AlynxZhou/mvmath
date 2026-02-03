@@ -1,8 +1,7 @@
-mv_c_args = []
 if get_option('debug') == true
   warning_level = 3
-  mv_c_args += ['-D__DEBUG__']
+  add_project_arguments('-D__DEBUG__', language: ['c'])
 endif
-mv_c_args += ['-std=gnu11']
+add_project_arguments('-std=gnu11', language: ['c'])
 
 subdir('srcs')

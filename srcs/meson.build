@@ -18,7 +18,6 @@ if get_option('buildtype') == 'debug'
   mvmath = static_library(
     meson.project_name() + '-mvmath',
     sources: sources,
-    c_args: mv_c_args,
     include_directories: include_directories,
     dependencies: dependencies,
     # Do not install static libray, we already linked against it.
@@ -28,7 +27,6 @@ else
   mvmath = shared_library(
     meson.project_name() + '-mvmath',
     sources: sources,
-    c_args: mv_c_args,
     include_directories: include_directories,
     dependencies: dependencies,
     install: true
