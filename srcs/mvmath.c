@@ -307,8 +307,8 @@ int m4compare(mat4 m1, mat4 m2)
 	for (unsigned int i = 0; i < 4; ++i)
 		for (unsigned int j = 0; j < 4; ++j)
 			if (m1.m[i * 4 + j] != m2.m[i * 4 + j])
-				return 0;
-	return 1;
+				return m1.m[i * 4 + j] - m2.m[i * 4 + j];
+	return 0;
 }
 
 mat4 m4inverse(mat4 m)
