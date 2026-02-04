@@ -1,4 +1,6 @@
 #include "mvmath.h"
+#include <xmmintrin.h>
+#include <smmintrin.h>
 
 scalar sabs(scalar s)
 {
@@ -231,43 +233,81 @@ vec4 v4abs(vec4 v)
 
 vec4 v4add(vec4 v1, vec4 v2)
 {
+#if defined(__SSE__)
+	vec4 result;
+	__m128 sse_v1 = _mm_loadu_ps(v1.v);
+	__m128 sse_v2 = _mm_loadu_ps(v2.v);
+	_mm_storeu_ps(result.v, _mm_add_ps(sse_v1, sse_v2));
+	return result;
+#else
 	return v4s(
 		v1.v[0] + v2.v[0],
 		v1.v[1] + v2.v[1],
 		v1.v[2] + v2.v[2],
 		v1.v[3] + v2.v[3]
 	);
+#endif
 }
 
 vec4 v4substract(vec4 v1, vec4 v2)
 {
+#if defined(__SSE__)
+	vec4 result;
+	__m128 sse_v1 = _mm_loadu_ps(v1.v);
+	__m128 sse_v2 = _mm_loadu_ps(v2.v);
+	_mm_storeu_ps(result.v, _mm_sub_ps(sse_v1, sse_v2));
+	return result;
+#else
 	return v4s(
 		v1.v[0] - v2.v[0],
 		v1.v[1] - v2.v[1],
 		v1.v[2] - v2.v[2],
 		v1.v[3] - v2.v[3]
 	);
+#endif
 }
 
 scalar v4dot(vec4 v1, vec4 v2)
 {
+#if defined(__SSE4_1__)
+	__m128 sse_v1 = _mm_loadu_ps(v1.v);
+	__m128 sse_v2 = _mm_loadu_ps(v2.v);
+	return _mm_cvtss_f32(_mm_dp_ps(sse_v1, sse_v2, 0xf1));
+#else
 	return v1.v[0] * v2.v[0] + v1.v[1] * v2.v[1] + v1.v[2] * v2.v[2] +
 	       v1.v[3] * v2.v[3];
+#endif
 }
 
 vec4 v4smultiply(vec4 v, scalar s)
 {
+#if defined(__SSE__)
+	vec4 result;
+	__m128 sse_v = _mm_loadu_ps(v.v);
+	__m128 sse_s = _mm_set1_ps(s);
+	_mm_storeu_ps(result.v, _mm_mul_ps(sse_v, sse_s));
+	return result;
+#else
 	return v4s(v.v[0] * s, v.v[1] * s, v.v[2] * s, v.v[3] * s);
+#endif
 }
 
 vec4 v4multiply(vec4 v1, vec4 v2)
 {
+#if defined(__SSE__)
+	vec4 result;
+	__m128 sse_v1 = _mm_loadu_ps(v1.v);
+	__m128 sse_v2 = _mm_loadu_ps(v2.v);
+	_mm_storeu_ps(result.v, _mm_mul_ps(sse_v1, sse_v2));
+	return result;
+#else
 	return v4s(
 		v1.v[0] * v2.v[0],
 		v1.v[1] * v2.v[1],
 		v1.v[2] * v2.v[2],
 		v1.v[3] * v2.v[3]
 	);
+#endif
 }
 
 vec4 v4clamp(vec4 v, vec4 vmin, vec4 vmax)
@@ -376,36 +416,80 @@ mat4 m4inverse(mat4 m)
 mat4 m4transpose(mat4 m)
 {
 	mat4 result;
+
+#if defined(__SSE__)
+	__m128 col0 = _mm_loadu_ps(&m.m[0]);
+	__m128 col1 = _mm_loadu_ps(&m.m[4]);
+	__m128 col2 = _mm_loadu_ps(&m.m[8]);
+	__m128 col3 = _mm_loadu_ps(&m.m[12]);
+
+	_MM_TRANSPOSE4_PS(col0, col1, col2, col3);
+
+	_mm_storeu_ps(&result.m[0], col0);
+	_mm_storeu_ps(&result.m[4], col1);
+	_mm_storeu_ps(&result.m[8], col2);
+	_mm_storeu_ps(&result.m[12], col3);
+#else
 	for (unsigned int i = 0; i < 4; ++i)
 		for (unsigned int j = 0; j < 4; ++j)
 			result.m[i * 4 + j] = m.m[j * 4 + i];
+#endif
+
 	return result;
 }
 
 mat4 m4multiply(mat4 m1, mat4 m2)
 {
 	mat4 m;
+
+	// for (unsigned int i = 0; i < 4; ++i) {
+	// 	for (unsigned int j = 0; j < 4; ++j) {
+	// 		m.m[i * 4 + j] = 0.0f;
+	// 		for (unsigned int k = 0; k < 4; ++k) {
+	// 			m.m[i * 4 + j] +=
+	// 				m1.m[k * 4 + j] * m2.m[i * 4 + k];
+	// 		}
+	// 	}
+	// }
+
+	// Optimized version to make memory access continuous.
+	const scalar *m1c0 = &m1.m[0];
+	const scalar *m1c1 = &m1.m[4];
+	const scalar *m1c2 = &m1.m[8];
+	const scalar *m1c3 = &m1.m[12];
 	for (unsigned int i = 0; i < 4; ++i) {
-		for (unsigned int j = 0; j < 4; ++j) {
-			m.m[i * 4 + j] = 0.0f;
-			for (unsigned int k = 0; k < 4; ++k) {
-				m.m[i * 4 + j] +=
-					m1.m[k * 4 + j] * m2.m[i * 4 + k];
-			}
-		}
+		const scalar *m2ci = &m2.m[i * 4];
+		const scalar m2cir0 = m2ci[0];
+		const scalar m2cir1 = m2ci[1];
+		const scalar m2cir2 = m2ci[2];
+		const scalar m2cir3 = m2ci[3];
+		scalar *mci = &m.m[i * 4];
+		for (unsigned int j = 0; j < 4; ++j)
+			mci[j] = m1c0[j] * m2cir0 + m1c1[j] * m2cir1 + m1c2[j] * m2cir2 + m1c3[j] * m2cir3;
 	}
+
 	return m;
 }
 
 vec4 m4v4multiply(mat4 m, vec4 v)
 {
 	vec4 result;
-	for (unsigned int i = 0; i < 4; ++i) {
-		result.v[i] = 0.0f;
-		for (unsigned int j = 0; j < 4; ++j) {
-			result.v[i] += m.m[j * 4 + i] * v.v[j];
-		}
-	}
+
+	// for (unsigned int i = 0; i < 4; ++i) {
+	// 	result.v[i] = 0.0f;
+	// 	for (unsigned int j = 0; j < 4; ++j) {
+	// 		result.v[i] += m.m[j * 4 + i] * v.v[j];
+	// 	}
+	// }
+
+	// Optimized version to make memory access continuous.
+	const scalar *mc0 = &m.m[0];
+	const scalar *mc1 = &m.m[4];
+	const scalar *mc2 = &m.m[8];
+	const scalar *mc3 = &m.m[12];
+	for (unsigned int i = 0; i < 4; ++i)
+		result.v[i] = mc0[i] * v.v[0] + mc1[i] * v.v[1] + mc2[i] * v.v[2] + mc3[i] * v.v[3];
+
 	return result;
 }
 
