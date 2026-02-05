@@ -1,6 +1,10 @@
 #include "mvmath.h"
-#include <xmmintrin.h>
-#include <smmintrin.h>
+#if defined(__SSE__)
+#	include <xmmintrin.h>
+#endif
+#if defined(__SSE4_1__)
+#	include <smmintrin.h>
+#endif
 
 scalar sabs(scalar s)
 {
